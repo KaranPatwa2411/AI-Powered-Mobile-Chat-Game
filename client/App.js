@@ -128,7 +128,6 @@ function LobbyScreen({ route, navigation }) {
         navigation.goBack();
       } else {
         setLobby(res.lobby);
-        // **FIX**: Filter out any potential undefined/null messages from the server
         setMessages((res.lobby.messages || []).filter(Boolean).reverse());
       }
     });
@@ -174,6 +173,8 @@ function LobbyScreen({ route, navigation }) {
     } else {
       avatar = <Avatar.Text size={36} label={item.sender ? item.sender[0] : '?'} />;
     }
+    const isPlayerOrBot = item.sender === username || item.sender === 'ChatBot';
+    const specialColor = '#1976d2'; 
 
     return (
       <Card style={{ marginVertical: 6, marginHorizontal: 2, backgroundColor: item.sender === username ? '#e3f2fd' : '#fff' }}>
@@ -181,6 +182,8 @@ function LobbyScreen({ route, navigation }) {
           title={displayName}
           subtitle={new Date(item.timestamp).toLocaleTimeString()}
           left={() => avatar}
+          titleStyle={isPlayerOrBot ? { color: specialColor } : {}}
+          subtitleStyle={isPlayerOrBot ? { color: specialColor, opacity: 0.8 } : {}}
         />
         <Card.Content>
           <Text style={{ fontSize: 16 }}>{item.message}</Text>
