@@ -44,7 +44,7 @@ The AI, powered by **Llama 3** via the Groq API, serves two distinct roles in th
 
 ### 2\. Dynamic Trivia Question Generation
 
-  * **Goal**: To act as a game host by dynamically creating trivia questions and answers, removing the need for a predefined question bank.
+  * **Goal**: To act as a game host by dynamically creating trivia questions and answers.
   * **Prompt Strategy**: To ensure reliable, machine-readable output, the AI is given a very specific, zero-shot prompt that instructs it to respond *only* in JSON format.
     > `You are a trivia game host. Generate a single, random trivia question with a concise, one or two-word answer. Provide the output *only* in JSON format like this: {"question": "What is the capital of Canada?", "answer": "Ottawa"}. Do not include any other text, explanation, or markdown formatting.`
   * **Implementation**: When a trivia event is triggered, the server calls the LLM with this prompt. It then parses the JSON response to get the question and answer, which are used to manage the game state.
